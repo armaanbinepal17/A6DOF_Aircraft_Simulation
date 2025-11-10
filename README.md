@@ -1,10 +1,7 @@
 # A6DOF_Aircraft_Simulation
 This is a 6 degree of freedom dynamics model in MATLAB to simulate aircraft behaviour
-% Main 6-DOF Aircraft Simulation
-% Clear workspace
-clear; clc; close all;
 
-fprintf('Starting 6-DOF Aircraft Simulation...\n');
+
 
 Aircraft Parameters
 aircraft.m = 1200;                    % Mass (kg)
@@ -43,10 +40,9 @@ y0 = [100;        % u - forward velocity (m/s)
     1000];     % z - altitude (m)
 
 Simulation Time
-tspan = [0 30];   % Simulate for 30 seconds
+tspan = [0 30];   
 
 Run Simulation
-fprintf('Running simulation...\n');
 options = odeset('RelTol', 1e-6, 'AbsTol', 1e-9);
 [t, y] = ode45(@(t,y) aircraft_6dof(t, y, aircraft), tspan, y0, options);
 
