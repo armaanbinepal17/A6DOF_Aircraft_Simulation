@@ -53,11 +53,7 @@ options = odeset('RelTol', 1e-6, 'AbsTol', 1e-9);
 Plot Results
 plot_results(t, y, aircraft);
 
-fprintf('Simulation completed!\n');
 
-% =========================================================================
-% REQUIRED FUNCTIONS (ADD THESE AT THE END OF YOUR SCRIPT)
-% =========================================================================
 
 function dydt = aircraft_6dof(t, y, ac)
 % 6-DOF Aircraft Equations of Motion
@@ -76,31 +72,31 @@ dudt = F(1)/ac.m - q*w + r*v - ac.g*sin(theta);
 dvdt = F(2)/ac.m - r*u + p*w + ac.g*cos(theta)*sin(phi);
 dwdt = F(3)/ac.m - p*v + q*u + ac.g*cos(theta)*cos(phi);
 
-% --- ANGULAR MOTION EQUATIONS (Body frame) ---
+
 omega = [p; q; r];
 domega = ac.invI * (M - cross(omega, ac.I * omega));
 dpdt = domega(1);
 dqdt = domega(2);
 drdt = domega(3);
 
-% --- KINEMATIC EQUATIONS (Euler angles) ---
+
 dphidt = p + q*sin(phi)*tan(theta) + r*cos(phi)*tan(theta);
 dthetadt = q*cos(phi) - r*sin(phi);
 dpsidt = q*sin(phi)/cos(theta) + r*cos(phi)/cos(theta);
 
-% --- NAVIGATION EQUATIONS ---
+
 % Rotation matrix from body to inertial frame
 R_bi = [cos(theta)*cos(psi), sin(phi)*sin(theta)*cos(psi)-cos(phi)*sin(psi), cos(phi)*sin(theta)*cos(psi)+sin(phi)*sin(psi);
     cos(theta)*sin(psi), sin(phi)*sin(theta)*sin(psi)+cos(phi)*cos(psi), cos(phi)*sin(theta)*sin(psi)-sin(phi)*cos(psi);
     -sin(theta),         sin(phi)*cos(theta),                            cos(phi)*cos(theta)];
 
-% Transform velocity from body to inertial frame
+
 vel_inertial = R_bi * [u; v; w];
 dxdt = vel_inertial(1);
 dydt_pos = vel_inertial(2);
 dzdt = vel_inertial(3);
 
-% Assemble derivative vector
+
 dydt = [dudt; dvdt; dwdt; dpdt; dqdt; drdt;
     dphidt; dthetadt; dpsidt;
     dxdt; dydt_pos; dzdt];
