@@ -41,7 +41,7 @@ integrity
 Aircraft Parameters
 - Mass: 18 kg
 - Wingspan: 0.5 m
-- Roll/Pitch/Yaw inertia: 2000/4000/5000 kg·m²
+- Roll/Pitch/Yaw inertia: 0.4/0.6/1.2 kg·m²
 
 Tools and Technologies
 - MATLAB with ODE45 numerical integration
